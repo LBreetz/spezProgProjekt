@@ -1,1 +1,3 @@
 # spezProgTest
+
+Idee: ToDo-Liste
