@@ -6,5 +6,9 @@
 # An example controller showing a sample home page
 GET     /                           controllers.HomeController.index()
 
+GET     /TodoList                   controllers.TodoList.todoList
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+
+GET     /stylesheets/*file          controllers.Assets.at(path="/public/stylesheets", file)
