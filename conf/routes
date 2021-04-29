@@ -8,6 +8,7 @@
 GET     /                           controllers.HomeController.index()
 +anyhost
 GET     /TodoList                   controllers.TodoList.todoList
++anyhost
 GET     /validateLogin              controllers.TodoList.validateLoginGet(username, password)
 
 # Map static resources from the /public folder to the /assets URL path
