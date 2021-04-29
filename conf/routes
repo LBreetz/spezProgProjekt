@@ -6,7 +6,7 @@
 # An example controller showing a sample home page
 +anyhost
 GET     /                           controllers.HomeController.index()
-
++anyhost
 GET     /TodoList                   controllers.TodoList.todoList
 
 # Map static resources from the /public folder to the /assets URL path
