@@ -9,7 +9,8 @@ import javax.inject.{Inject, Singleton}
 class TodoList @Inject()(val controllerComponents: ControllerComponents) extends BaseController{
 
   def validateLoginGet(username: String, password: String) = Action {
-    Ok(s"$username logged in!")
+    val todo = List("ToDo1", "ToDo2", "ToDo3", "ToDo4")
+    Ok(views.html.TodoListIndex(todo))
   }
 
   def todoList = Action {
