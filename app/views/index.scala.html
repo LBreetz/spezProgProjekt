@@ -1,5 +1,14 @@
 @()
 
-@main("Welcome to Play") {
-  <h1>Welcome to Play!</h1>
+@* @main("Welcome to Play") {*@
+@*   <h1>Welcome to Play!</h1>*@
+@* }*@
+@main("login") {
+  <h2>Login</h2>
+
+  <form method="get" action="validateLogin">
+    Username: <input type="text" name="username"></input>
+    Password: <input type="password" name="password"></input>
+      <input type="submit"></input>
+  </form>
 }
