@@ -10,12 +10,12 @@ class TodoList @Inject()(val controllerComponents: ControllerComponents) extends
 
   def validateLoginGet(username: String, password: String) = Action {
     val todo = List("ToDo1", "ToDo2", "ToDo3", "ToDo4")
-    Ok(views.html.TodoListIndex(todo))
+    Ok(views.html.TodoList(todo))
   }
 
   def todoList = Action {
     val todo = List("ToDo1", "ToDo2", "ToDo3", "ToDo4")
-    Ok(views.html.TodoListIndex(todo))
+    Ok(views.html.TodoList(todo))
   }
 
 }

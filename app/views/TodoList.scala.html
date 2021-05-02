@@ -1,0 +1,44 @@
+@(todo: Seq[String])
+
+@main("ToDo Liste") {
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="../../public/stylesheets/main.css">
+    </head>
+
+    <body>
+            <!-- Bootstrap navbar with image and text -->
+        <nav class="navbar navbar-light bg-light" id="bottomShadow">
+            <a class="navbar-brand" href="#">
+                <img src="https://thumbs.dreamstime.com/b/business-to-do-list-flat-icon-modern-style-task-list-business-to-do-list-flat-icon-modern-style-any-purposes-perfect-web-138650221.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
+                ToDO-Liste
+            </a>
+        </nav>
+            <!-- end navbar -->
+
+            <!-- Content -->
+        <div class="backgroundContent">
+                <!-- Card -> ToDo-List -->
+            <div class="cardWrapper">
+                <div class="card">
+                    <div class="card-header" id="customColor">
+                        ToDo-Liste
+                    </div>
+                    <div class="card-body">
+                            <!-- <h5 class="card-title">ToDo-Liste</h5> -->
+                        <p class="card-text">
+                            <ul>
+                                @for(todo <- todo){
+                                <li>@todo</li>
+                                }
+                            </ul>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+                <!-- end Card -->
+    </body>
+
+}
