@@ -23,24 +23,22 @@
                 </a>
             </nav>
 
-            <div class="backgorundImg" style="background-image: url('https://i.pinimg.com/originals/90/cf/f2/90cff2804bf14b19d7702dc0d9da63a9.jpg');">
-                <div class="card" id="loginCard">
-                    <div class="card-header" id="customColor">
-                        Login
-                    </div>
-                    <div class="card-body">
-                        <form method="get" action="validateLogin">
-                            <div class="form-group">
-                                <label for="formGroupExampleInput">Username:</label>
-                                <input type="text" name="username" class="form-control" id="formGroupExampleInput" placeholder="username">
-                            </div>
-                            <div class="form-group">
-                                <label for="formGroupExampleInput2">Password:</label>
-                                <input type="password" name="password" class="form-control" id="formGroupExampleInput2" placeholder="password">
-                            </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </form>
-                    </div>
+            <div class="card" id="loginCard">
+                <div class="card-header" id="customColor">
+                    Login
+                </div>
+                <div class="card-body">
+                    <form method="post" action="@routes.TodoList.validateLoginPost">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Username:</label>
+                            <input type="text" name="username" class="form-control" id="formGroupExampleInput" placeholder="username">
+                        </div>
+                        <div class="form-group">
+                            <label for="formGroupExampleInput2">Password:</label>
+                            <input type="password" name="password" class="form-control" id="formGroupExampleInput2" placeholder="password">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
                 </div>
             </div>
         </body>

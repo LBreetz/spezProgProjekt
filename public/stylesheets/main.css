@@ -1,40 +1,24 @@
-.backgorundImg{
-    -webkit-text-size-adjust: 100%;
-    -webkit-tap-highlight-color: transparent;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #212529;
-    font-family: Ubuntu-Regular, sans-serif;
-    margin: 0px;
-    box-sizing: border-box;
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    padding: 15px;
-    background-repeat: no-repeat;
-    background-position: center;
+html {
+    background: url(https://oswallpapers.com/wp-content/uploads/2017/04/warty-final-ubuntu.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     background-size: cover;
-    position: relative;
-    z-index: 1;
 }
 
 .backgroundContent{
-    background-color: #edfcfb;
+    /*background-color: #edfcfb;*/
     position:absolute;
     top:56px;
     bottom:0;
     left:0;
     right:0;
-    overflow:hidden;
-    z-index:-1;
+
 }
 .cardWrapper{
-
-    margin: 80px;
+    margin-top: 100px;
+    margin-left: 400px;
+    margin-right: 400px;
 }
 
 #customColor{
