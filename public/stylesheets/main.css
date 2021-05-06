@@ -17,6 +17,7 @@ html {
 
 .cardWrapper{
     width: 450px;
+    height: auto;
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -44,4 +45,8 @@ html {
     transform: translate(-50%, -50%);
     border: 0px !important;
     shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+}
+
+.addTaskForm{
+    display: flex;
 }

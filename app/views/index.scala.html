@@ -1,4 +1,4 @@
-@()(implicit request: RequestHeader)
+@()(implicit request: RequestHeader, flash: Flash)
 @* @main("Welcome to Play") {*@
 @* <h1>Welcome to Play!</h1>*@
 @* }*@
@@ -31,6 +31,7 @@
                     <form method="post" action="@routes.TodoList.validateLoginPost">
                             <!-- CSRF token so I dont need +nocsrf tag in routes-->
                         @helper.CSRF.formField
+                        <div style="color: red">@flash.get("error")</div>
                         <div class="form-group">
                             <label for="formGroupExampleInput">Username:</label>
                             <input type="text" name="username" class="form-control" id="formGroupExampleInput" placeholder="username">
