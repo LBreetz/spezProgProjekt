@@ -3,44 +3,53 @@
 @* <h1>Welcome to Play!</h1>*@
 @* }*@
 @main("login") {
-    @* <form method="get" action="validateLogin">*@
-    @* Username: <input type="text" name="username"></input>*@
-    @* Password: <input type="password" name="password"></input>*@
-    @* <input type="submit"></input>*@
-    @* </form>*@
-    <!-- Bootstrap navbar with image and text -->
-    <nav class="navbar navbar-light bg-light" id="bottomShadow">
-        <a class="navbar-brand" href="#">
-            <img src="https://thumbs.dreamstime.com/b/business-to-do-list-flat-icon-modern-style-task-list-business-to-do-list-flat-icon-modern-style-any-purposes-perfect-web-138650221.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
-            ToDo-Liste
-        </a>
-    </nav>
+@*    <form method="get" action="validateLogin">*@
+@*        Username: <input type="text" name="username"></input>*@
+@*        Password: <input type="password" name="password"></input>*@
+@*        <input type="submit"></input>*@
+@*    </form>*@
 
-    <div class="card" id="loginCard">
-        <div class="card-header" id="customColor">
-            Login
-        </div>
-        <div class="card-body">
-            <form method="post" action="@routes.TodoList.validateLoginPost">
-                    <!-- CSRF token so I dont need +nocsrf tag in routes-->
-                @helper.CSRF.formField
-                <div style="color: red">@flash.get("error")</div>
-                <div class="form-group">
-                    <label for="formGroupExampleInput">Username:</label>
-                    <input type="text" name="username" class="form-control" id="formGroupExampleInput" placeholder="username">
-                </div>
-                <div class="form-group">
-                    <label for="formGroupExampleInput2">Password:</label>
-                    <input type="password" name="password" class="form-control" id="formGroupExampleInput2" placeholder="password">
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-                <a class="btn btn-primary" href="">&nbsp;create&nbsp;</a> <!-- bei href seite einfügen für create mask -->
-            </form>
-            @* create account button*@
-            @* <form method="post" action="@routes.TodoList.createNewUser">*@
-            @* <button type="submit" class="btn btn-primary">&nbsp;create&nbsp;</button>*@
-            @* </form>*@
-        </div>
-    </div>
+<!DOCTYPE html>
+    <html>
+        <head>
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+            <link rel="stylesheet" href="../../public/stylesheets/main.css">
+        </head>
+        <body>
+                <!-- Bootstrap navbar with image and text -->
+            <nav class="navbar navbar-light bg-light" id="bottomShadow">
+                <a class="navbar-brand" href="#">
+                    <img src="https://thumbs.dreamstime.com/b/business-to-do-list-flat-icon-modern-style-task-list-business-to-do-list-flat-icon-modern-style-any-purposes-perfect-web-138650221.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
+                    ToDo-Liste
+                </a>
+            </nav>
 
+            <div class="card" id="loginCard">
+                <div class="card-header" id="customColor">
+                    Login
+                </div>
+                <div class="card-body">
+                    <form method="post" action="@routes.TodoList.validateLoginPost">
+                            <!-- CSRF token so I dont need +nocsrf tag in routes-->
+                        @helper.CSRF.formField
+                        <div style="color: red">@flash.get("error")</div>
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Username:</label>
+                            <input type="text" name="username" class="form-control" id="formGroupExampleInput" placeholder="username">
+                        </div>
+                        <div class="form-group">
+                            <label for="formGroupExampleInput2">Password:</label>
+                            <input type="password" name="password" class="form-control" id="formGroupExampleInput2" placeholder="password">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <a class="btn btn-primary" href="">&nbsp;create&nbsp;</a> <!-- bei href seite einfügen für create mask -->
+                    </form>
+                    @* create account button*@
+                    @* <form method="post" action="@routes.TodoList.createNewUser">*@
+                    @* <button type="submit" class="btn btn-primary">&nbsp;create&nbsp;</button>*@
+                    @* </form>*@
+                </div>
+            </div>
+        </body>
+    </html>
 }
