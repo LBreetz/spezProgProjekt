@@ -23,5 +23,7 @@ POST    /addTask                    controllers.TodoList.addTask
 POST    /deleteTask                controllers.TodoList.deleteTask
 
 # Map static resources from the /public folder to the /assets URL path
++anyhost, nocsrf
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
++anyhost, nocsrf
 GET     /stylesheets/*file          controllers.Assets.at(path="/public/stylesheets", file)
