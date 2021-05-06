@@ -9,16 +9,22 @@ html {
 .backgroundContent{
     /*background-color: #edfcfb;*/
     position:absolute;
-    top:56px;
+    top:50px;
     bottom:0;
     left:0;
     right:0;
-
 }
+
 .cardWrapper{
-    margin-top: 100px;
-    margin-left: 400px;
-    margin-right: 400px;
+    width: 450px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#cardShadow {
+    border: 0px !important;
+    shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 }
 
 #customColor{
@@ -36,5 +42,6 @@ html {
     left: 48%; /*seems to be centered than 50%*/
     /* bring your own prefixes */
     transform: translate(-50%, -50%);
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border: 0px !important;
+    shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 }

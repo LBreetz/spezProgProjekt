@@ -13,9 +13,9 @@ GET     /TodoList                   controllers.TodoList.todoList
 +anyhost
 GET     /logout                     controllers.TodoList.logout
 
-+anyhost, nocsrf
++anyhost
 POST    /validateLogin              controllers.TodoList.validateLoginPost
-+anyhost, nocsrf
++anyhost
 POST    /createNewUser              controllers.TodoList.createNewUser
 
 

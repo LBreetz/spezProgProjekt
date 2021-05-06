@@ -1,4 +1,4 @@
-@()
+@()(implicit request: RequestHeader)
 @* @main("Welcome to Play") {*@
 @* <h1>Welcome to Play!</h1>*@
 @* }*@
@@ -29,6 +29,8 @@
                 </div>
                 <div class="card-body">
                     <form method="post" action="@routes.TodoList.validateLoginPost">
+                            <!-- CSRF token so I dont need +nocsrf tag in routes-->
+                        @helper.CSRF.formField
                         <div class="form-group">
                             <label for="formGroupExampleInput">Username:</label>
                             <input type="text" name="username" class="form-control" id="formGroupExampleInput" placeholder="username">
