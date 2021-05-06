@@ -55,8 +55,11 @@ class TodoList @Inject()(val controllerComponents: ControllerComponents) extends
       val postVals = request.body.asFormUrlEncoded
       postVals.map { args =>
         val task = args("newTask").head
-        TodoListMemory.addTask(username, task);
-        Redirect(routes.TodoList.todoList)
+        if (task == "") Redirect(routes.TodoList.todoList)
+        else {
+          TodoListMemory.addTask(username, task);
+          Redirect(routes.TodoList.todoList)
+        }
       }.getOrElse(Redirect(routes.TodoList.todoList))
     }.getOrElse(Redirect(routes.HomeController.index()))
   }
