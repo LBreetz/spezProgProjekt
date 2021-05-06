@@ -2,61 +2,60 @@
 
 @main("ToDo Liste") {
 
-        <body>
-                <!-- Bootstrap navbar with image and text -->
-            <nav class="navbar navbar-light bg-light" id="bottomShadow">
-                <a class="navbar-brand" href="#">
-                    <img src="https://thumbs.dreamstime.com/b/business-to-do-list-flat-icon-modern-style-task-list-business-to-do-list-flat-icon-modern-style-any-purposes-perfect-web-138650221.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
-                    ToDo-Liste
-                </a>
-                <a class="btn btn-light" href="@routes.TodoList.logout" >Logout</a>
-            </nav>
-                <!-- end navbar -->
 
-                <!-- Content -->
-            <div class="backgroundContent">
-                    <!-- Card -> ToDo-List -->
-                <div class="container h-100">
-                    <div class="row h-100 justify-content-center align-items-center">
-                        <div class="col-12" >
-                            <div class="cardWrapper">
-                                <div class="card" id="cardShadow">
-                                    <div class="card-header" id="customColor">
-                                        ToDo-Liste
-                                    </div>
-                                    <div class="card-body">
-                                            <!-- <h5 class="card-title">ToDo-Liste</h5> -->
-                                        <p class="card-text">
-                                    <ul>
-                                        @for((todo, i) <- todo.zipWithIndex) {
-                                            @* <li>@todo</li>*@
-                                            <li>
-                                                <form method="post" action="@routes.TodoList.deleteTask">
-                                                    @helper.CSRF.formField
-                                                    <input id="index" type="hidden" name="index" value="@i">
-                                                    <input class="form-check-input" type="submit" value="" id="flexCheckDefault">
-                                                    <label class="form-check-label" for="flexCheckDefault">&nbsp;
-                                                    @todo</label>
-                                                </form>
-                                            </li>
-                                        }
-                                    </ul>
-                                        </p>
-                                        <form method="post" action="@routes.TodoList.addTask">
+    <!-- Bootstrap navbar with image and text -->
+    <nav class="navbar navbar-light bg-light" id="bottomShadow">
+        <a class="navbar-brand" href="#">
+            <img src="https://thumbs.dreamstime.com/b/business-to-do-list-flat-icon-modern-style-task-list-business-to-do-list-flat-icon-modern-style-any-purposes-perfect-web-138650221.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
+            ToDo-Liste
+        </a>
+        <a class="btn btn-light" href="@routes.TodoList.logout" >Logout</a>
+    </nav>
+        <!-- end navbar -->
+
+        <!-- Content -->
+    <div class="backgroundContent">
+            <!-- Card -> ToDo-List -->
+        <div class="container h-100">
+            <div class="row h-100 justify-content-center align-items-center">
+                <div class="col-12" >
+                    <div class="cardWrapper">
+                        <div class="card" id="cardShadow">
+                            <div class="card-header" id="customColor">
+                                ToDo-Liste
+                            </div>
+                            <div class="card-body">
+                                    <!-- <h5 class="card-title">ToDo-Liste</h5> -->
+                                <p class="card-text">
+                            <ul>
+                                @for((todo, i) <- todo.zipWithIndex) {
+                                    @* <li>@todo</li>*@
+                                    <li>
+                                        <form method="post" action="@routes.TodoList.deleteTask">
                                             @helper.CSRF.formField
-                                            <div class="addTaskForm">
-                                                <input type="text" name="newTask" class="form-control" id="formGroupExampleInput2" placeholder="new Task">
-                                                <button type="submit" class="btn btn-outline-primary">&nbsp;add&nbsp;</button>
-                                            </div>
+                                        <input id="index" type="hidden" name="index" value="@i">
+                                        <input class="form-check-input" type="submit" value="" id="flexCheckDefault">
+                                        <label class="form-check-label" for="flexCheckDefault">&nbsp;
+                                            @todo</label>
                                         </form>
+                                    </li>
+                                }
+                            </ul>
+                                </p>
+                                <form method="post" action="@routes.TodoList.addTask">
+                                    @helper.CSRF.formField
+                                    <div class="addTaskForm">
+                                        <input type="text" name="newTask" class="form-control" id="formGroupExampleInput2" placeholder="new Task">
+                                        <button type="submit" class="btn btn-outline-primary">&nbsp;add&nbsp;</button>
                                     </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-                <!-- end Card -->
-        </body>
-    </html>
+        </div>
+    </div>
+        <!-- end Card -->
+   
 }
