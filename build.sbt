@@ -23,7 +23,7 @@ herokuAppName in Compile := "fast-journey-46818"
 //libraryDependencies += jdbc
 
 Compile / herokuProcessTypes := Map(
-  "web" -> "target/universal/stage/bin/play-app-test -Dhttp.port=$PORT",
+  "web" -> "target/universal/stage/bin/project_breetz -Dhttp.port=56640",
 )
 
 //herokuProcessTypes in Compile := Map(
