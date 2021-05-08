@@ -7,15 +7,28 @@ lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
 scalaVersion := "2.13.5"
 
-libraryDependencies += jdbc
+
 libraryDependencies += guice
 libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "5.0.0" % Test
+libraryDependencies += "org.postgresql" % "postgresql" % "42.2.5"
+
+libraryDependencies ++= Seq(
+  "com.typesafe.play" %% "play-slick" % "5.0.0",
+  "com.typesafe.play" %% "play-slick-evolutions" % "5.0.0"
+)
 
 herokuAppName in Compile := "fast-journey-46818"
 
-libraryDependencies += "mysql" % "mysql-connector-java" % "5.1.41"
+//libraryDependencies += "mysql" % "mysql-connector-java" % "5.1.41"
+//libraryDependencies += jdbc
 
+Compile / herokuProcessTypes := Map(
+  "web" -> "target/universal/stage/bin/play-app-test -Dhttp.port=$PORT",
+)
 
+//herokuProcessTypes in Compile := Map(
+//  "web" -> "target/universal/stage/bin/play-app-test -Dhttp.port=$PORT",
+//)
 
 // Adds additional packages into Twirl
 //TwirlKeys.templateImports += "com.LBreetz.controllers._"
