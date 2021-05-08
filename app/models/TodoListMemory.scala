@@ -21,7 +21,7 @@ object TodoListMemory {
   def getTask(username: String): Seq[String] = {
     tasks.get(username).getOrElse(Nil)
   }
-
+  
   def addTask(username: String, task: String): Unit = {
     tasks(username) = task :: tasks.get(username).getOrElse(Nil)
   }
