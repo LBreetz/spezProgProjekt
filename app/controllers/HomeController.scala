@@ -23,7 +23,7 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
   }
 
   def env() = Action { implicit request: Request[AnyContent] =>
-    Ok("Nothing to see here")
-    //Ok(System.getenv("JDBC_DATABASE_URL"))
+    //Ok("Nothing to see here")
+    Ok(System.getenv("JDBC_DATABASE_URL"))
   }
 }
