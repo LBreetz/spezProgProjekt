@@ -1,3 +1,5 @@
 package models
 
-case class User(name: String, password: String, tasks: String)
+case class User(name: String, password: String) {
+  def getUsername = name
+}

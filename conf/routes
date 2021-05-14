@@ -10,6 +10,8 @@ GET     /                           controllers.HomeController.index()
 GET     /TodoList                   controllers.TodoList.todoList
 GET     /logout                     controllers.TodoList.logout
 GET     /env                        controllers.HomeController.env()
+GET     /create                     controllers.HomeController.create()
+GET     /test                       controllers.TodoList.showAllUser
 
 
 POST    /validateLogin              controllers.TodoList.validateLoginPost

@@ -16,6 +16,7 @@
                     <img src="https://thumbs.dreamstime.com/b/business-to-do-list-flat-icon-modern-style-task-list-business-to-do-list-flat-icon-modern-style-any-purposes-perfect-web-138650221.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
                     ToDo-Liste
                 </a>
+                <a class="btn btn-light" href="@routes.TodoList.showAllUser" >show User</a>
             </nav>
 
             <div class="card" id="loginCard">
@@ -36,7 +37,7 @@
                             <input type="password" name="password" class="form-control" id="formGroupExampleInput2" placeholder="password">
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
-                        <a class="btn btn-primary" href="">&nbsp;create&nbsp;</a> <!-- bei href seite einfügen für create mask -->
+                        <a class="btn btn-primary" href="@routes.HomeController.create()">&nbsp;create&nbsp;</a>
                     </form>
                     @* create account button*@
                     @* <form method="post" action="@routes.TodoList.createNewUser">*@

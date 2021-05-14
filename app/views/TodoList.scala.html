@@ -1,4 +1,4 @@
-@(todo: Seq[String])(implicit request: RequestHeader, flash: Flash)
+@(todo: Seq[Tasks])(implicit request: RequestHeader, flash: Flash)
 
 @main("ToDo Liste") {
                 <!-- Bootstrap navbar with image and text -->
@@ -34,7 +34,7 @@
                                                     <input id="index" type="hidden" name="index" value="@i">
                                                     <input class="form-check-input" type="submit" value="" id="flexCheckDefault">
                                                     <label class="form-check-label" for="flexCheckDefault">&nbsp;
-                                                    @todo</label>
+                                                    @todo.task</label>
                                                 </form>
                                             </li>
                                         }

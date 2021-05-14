@@ -23,12 +23,10 @@ herokuAppName in Compile := "fast-journey-46818"
 //libraryDependencies += jdbc
 
 Compile / herokuProcessTypes := Map(
-  "web" -> "target/universal/stage/bin/project_breetz -Dhttp.port=56640",
+  "web" -> "target/universal/stage/bin/project_breetz -Dhttp.port=$PORT",
 )
 
-//herokuProcessTypes in Compile := Map(
-//  "web" -> "target/universal/stage/bin/play-app-test -Dhttp.port=$PORT",
-//)
+//"target/universal/stage/bin/project_breetz -Dhttp.port=56640",
 
 // Adds additional packages into Twirl
 //TwirlKeys.templateImports += "com.LBreetz.controllers._"

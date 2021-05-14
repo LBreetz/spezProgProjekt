@@ -3,6 +3,7 @@ package models
 import collection.mutable
 
 object TodoListMemory {
+
   private val users = mutable.Map[String, String]("Test" -> "Test")
   private val tasks = mutable.Map[String, List[String]]("Test" -> List("spezProg Projekt beenden", "Haushalt", "Platzhalter", "Platzhalter", "Platzhalter"))
 
