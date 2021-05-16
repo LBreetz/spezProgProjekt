@@ -26,6 +26,11 @@ import scala.concurrent.ExecutionContext
 class TodoList @Inject()(userDao: UserDAO, taksDAO: TaksDAO, controllerComponents: ControllerComponents)
                         (implicit executionContext: ExecutionContext)extends AbstractController(controllerComponents){
 
+  val userForm = Form(
+    mapping(
+      "username" -> text(),
+      "password" -> text())(User.apply)(User.unapply))
+
   def validateLoginPost = Action { implicit request =>
     val  postVals = request.body.asFormUrlEncoded //input field names (username, password) are keys for postVals map -> as you can see by using args(username)...
     postVals.map { args =>
@@ -33,11 +38,11 @@ class TodoList @Inject()(userDao: UserDAO, taksDAO: TaksDAO, controllerComponent
       val password = args("password").head
 
       if (userDao.checkUserExists(username) & userDao.checkPassword(username, password)) {
-        Redirect(routes.TodoList.todoList).withSession("username" -> username) // store username in session
+        Redirect(routes.TodoList.todoList(username)).withSession("username" -> username) // store username in session
       } else if (!userDao.checkUserExists(username) || !userDao.checkPassword(username, password)){
         Redirect(routes.HomeController.index).flashing("error" -> "invalid username or password!")
       }
-      Redirect(routes.TodoList.todoList).withSession("username" -> username) // store username in session
+      Redirect(routes.TodoList.todoList(username)).withSession("username" -> username) // store username in session
     }.getOrElse(Redirect(routes.HomeController.index))
   }
 
@@ -48,20 +53,20 @@ class TodoList @Inject()(userDao: UserDAO, taksDAO: TaksDAO, controllerComponent
       val password = args("password").head
       val user: User = User(username, password)
       if (!userDao.checkUserExists(username)){
-        userDao.insertUser(user).map(_ => Redirect(routes.TodoList.todoList).withSession("username" -> username))
-        Redirect(routes.TodoList.todoList).withSession("username" -> username)
+        userDao.insertUser(user).map(_ => Redirect(routes.TodoList.todoList(username)).withSession("username" -> username))
+        Redirect(routes.TodoList.todoList(username)).withSession("username" -> username)
       } else {
         Redirect(routes.HomeController.create).flashing("error" -> "user already exists!")
       }
     }.getOrElse(Redirect(routes.HomeController.index).flashing("error" -> "an error has occurred!"))
   }
 
-  def todoList = Action { implicit request =>
-    val sessionUsername = request.session.get("username") //get username from session
-    sessionUsername.map { username =>
-      taksDAO.allTasks(username).map { case (tasks) => Ok(views.html.TodoList(tasks))}
-      Ok("")
-    }.getOrElse(Redirect(routes.HomeController.index))
+  def todoList(username: String) = Action.async { implicit request =>
+//    val sessionUsername = request.session.get("username") //get username from session
+//    sessionUsername.map { username =>
+    //val user: User = userForm.bindFromRequest.get
+    taksDAO.allTasks(username).map { case (tasks) => Ok(views.html.TodoList(tasks))}
+    //}.getOrElse(Redirect(routes.HomeController.index))
   }
 
   def logout = Action{
@@ -74,12 +79,12 @@ class TodoList @Inject()(userDao: UserDAO, taksDAO: TaksDAO, controllerComponent
       val postVals = request.body.asFormUrlEncoded
       postVals.map { args =>
         val task = args("newTask").head
-        if (task == "") Redirect(routes.TodoList.todoList)
+        if (task == "") Redirect(routes.TodoList.todoList(username))
         else {
           TodoListMemory.addTask(username, task);
-          Redirect(routes.TodoList.todoList)
+          Redirect(routes.TodoList.todoList(username))
         }
-      }.getOrElse(Redirect(routes.TodoList.todoList))
+      }.getOrElse(Redirect(routes.TodoList.todoList(username)))
     }.getOrElse(Redirect(routes.HomeController.index()))
   }
 
@@ -90,8 +95,8 @@ class TodoList @Inject()(userDao: UserDAO, taksDAO: TaksDAO, controllerComponent
       postVals.map { args =>
         val index = args("index").head.toInt
         TodoListMemory.removeTask(username, index);
-        Redirect(routes.TodoList.todoList)
-      }.getOrElse(Redirect(routes.TodoList.todoList))
+        Redirect(routes.TodoList.todoList(username))
+      }.getOrElse(Redirect(routes.TodoList.todoList(username)))
     }.getOrElse(Redirect(routes.HomeController.index()))
   }
 
