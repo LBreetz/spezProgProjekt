@@ -1,11 +1,15 @@
 package daos
 
+import controllers.routes
 import models.User
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
+import play.api.mvc.Result
+import play.api.mvc.Results.Redirect
 import slick.jdbc.JdbcProfile
 
 import javax.inject.Inject
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.duration.DurationInt
+import scala.concurrent.{Await, ExecutionContext, Future}
 
 class UserDAO @Inject()(protected val dbConfigProvider: DatabaseConfigProvider)
                        (implicit executionContext: ExecutionContext) extends HasDatabaseConfigProvider[JdbcProfile] {
@@ -18,28 +22,32 @@ class UserDAO @Inject()(protected val dbConfigProvider: DatabaseConfigProvider)
   def insertUser(user: User): Future[Unit] = db.run(Users += user).map { _ => () }
 
   def checkUserExists(username: String): Boolean = {
-    val users = allUser()
-    for (user <- users) (if (user.head.name == username) {
+    val names: Future[Seq[User]] = db.run(Users.filter(_.name === username).result)
+    val test = Await.result(names, 1.seconds)
+    if (test.head.name == username){
       println("Nutzer existiert")
       true
-    } else {
-      println("Nutzer existiert nicht")
-      false
-    })
-    false
+    } else false
   }
 
-  def checkPassword(username: String, password: String) ={
-    val query = Users.filter(_.name === username)
-    val pass = db.run[Seq[User]](query.result)
-    for (p <- pass) (if (p.head.password.toString == password) {
-      println("passwort korrekt")
+  def checkPassword(username: String, password: String): Boolean ={
+    val names: Future[Seq[User]] = db.run(Users.filter(_.name === username).result)
+    val test = Await.result(names, 1.seconds)
+    if (test.head.password == password){
+      println("password korrekt")
       true
-    } else{
-      println("passwort nicht korrekt")
-      false
-    })
-    false
+    } else false
+  }
+
+  def validateLogin(username: String, password: String): Boolean ={
+    var result = false
+    if(checkUserExists(username) & checkPassword(username, password)){
+      print("true")
+      result = true
+    } else {
+      result = false
+    }
+    result
   }
 
 

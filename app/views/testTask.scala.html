@@ -1,0 +1,11 @@
+@(todo: Seq[Tasks])(implicit request: RequestHeader, flash: Flash)
+
+@main("tets2") {
+
+    <ul>
+    @for(todo <- todo) {
+        <li>@todo</li>
+    }
+    </ul>
+
+}

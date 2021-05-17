@@ -9,7 +9,7 @@ import javax.inject._
 import play.api._
 import play.api.mvc._
 import daos.UserDAO
-import daos.TaksDAO
+import daos.TaskDAO
 import models.User
 import models.Tasks
 
@@ -23,7 +23,7 @@ import scala.concurrent.ExecutionContext
 
 
 @Singleton
-class TodoList @Inject()(userDao: UserDAO, taksDAO: TaksDAO, controllerComponents: ControllerComponents)
+class TodoList @Inject()(userDao: UserDAO, taskDAO: TaskDAO, controllerComponents: ControllerComponents)
                         (implicit executionContext: ExecutionContext)extends AbstractController(controllerComponents){
 
   val userForm = Form(
@@ -37,12 +37,10 @@ class TodoList @Inject()(userDao: UserDAO, taksDAO: TaksDAO, controllerComponent
       val username = args("username").head
       val password = args("password").head
 
-      if (userDao.checkUserExists(username) & userDao.checkPassword(username, password)) {
-        Redirect(routes.TodoList.todoList(username)).withSession("username" -> username) // store username in session
-      } else if (!userDao.checkUserExists(username) || !userDao.checkPassword(username, password)){
-        Redirect(routes.HomeController.index).flashing("error" -> "invalid username or password!")
-      }
-      Redirect(routes.TodoList.todoList(username)).withSession("username" -> username) // store username in session
+      if (userDao.validateLogin(username, password)){
+        Redirect(routes.TodoList.todoList(username)).withSession("username" -> username)// store username in session
+      } else Redirect(routes.HomeController.index).flashing("error" -> "invalid username or password!")
+
     }.getOrElse(Redirect(routes.HomeController.index))
   }
 
@@ -62,11 +60,7 @@ class TodoList @Inject()(userDao: UserDAO, taksDAO: TaksDAO, controllerComponent
   }
 
   def todoList(username: String) = Action.async { implicit request =>
-//    val sessionUsername = request.session.get("username") //get username from session
-//    sessionUsername.map { username =>
-    //val user: User = userForm.bindFromRequest.get
-    taksDAO.allTasks(username).map { case (tasks) => Ok(views.html.TodoList(tasks))}
-    //}.getOrElse(Redirect(routes.HomeController.index))
+    taskDAO.allTasksFromUser(username).map { case (tasks) => Ok(views.html.TodoList(tasks))}
   }
 
   def logout = Action{
@@ -81,7 +75,9 @@ class TodoList @Inject()(userDao: UserDAO, taksDAO: TaksDAO, controllerComponent
         val task = args("newTask").head
         if (task == "") Redirect(routes.TodoList.todoList(username))
         else {
-          TodoListMemory.addTask(username, task);
+          val taskObj = Tasks(task, username)
+          //TodoListMemory.addTask(username, task);
+          taskDAO.insertTask(taskObj)
           Redirect(routes.TodoList.todoList(username))
         }
       }.getOrElse(Redirect(routes.TodoList.todoList(username)))
@@ -102,6 +98,10 @@ class TodoList @Inject()(userDao: UserDAO, taksDAO: TaksDAO, controllerComponent
 
   def showAllUser= Action.async { implicit request =>
     userDao.allUser().map { case (user) => Ok(views.html.test(user))}
+  }
+
+  def showAllTasks= Action.async { implicit request =>
+    taskDAO.allTasks().map {case (tasks) => Ok(views.html.testTask(tasks))}
   }
 
 }
