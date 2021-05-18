@@ -89,8 +89,9 @@ class TodoList @Inject()(userDao: UserDAO, taskDAO: TaskDAO, controllerComponent
     usernameOption.map { username =>
       val postVals = request.body.asFormUrlEncoded
       postVals.map { args =>
-        val index = args("index").head.toInt
-        TodoListMemory.removeTask(username, index);
+        val index = args("index").head
+        //TodoListMemory.removeTask(username, index);
+        taskDAO.deleteTask(index)
         Redirect(routes.TodoList.todoList(username))
       }.getOrElse(Redirect(routes.TodoList.todoList(username)))
     }.getOrElse(Redirect(routes.HomeController.index()))

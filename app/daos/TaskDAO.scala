@@ -28,6 +28,11 @@ class TaskDAO @Inject()(protected val dbConfigProvider: DatabaseConfigProvider, 
     db.run(tasksVal += taskObj).map { _ => () }
   }
 
+  def deleteTask(taskname: String) = {
+    val deleteQuery = tasksVal.filter(_.task === taskname).delete
+    db.run(deleteQuery)
+  }
+
 
   private class TaskTable(tag: Tag) extends Table[Tasks](tag, "TASKS") {
     def task = column[String]("TASK", O.PrimaryKey)

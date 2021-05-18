@@ -1,10 +1,7 @@
 package daos
 
-import controllers.routes
 import models.User
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
-import play.api.mvc.Result
-import play.api.mvc.Results.Redirect
 import slick.jdbc.JdbcProfile
 
 import javax.inject.Inject

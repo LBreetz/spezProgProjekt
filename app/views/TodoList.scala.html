@@ -31,7 +31,7 @@
                                             <li>
                                                 <form method="post" action="@routes.TodoList.deleteTask">
                                                     @helper.CSRF.formField
-                                                    <input id="index" type="hidden" name="index" value="@i">
+                                                    <input id="index" type="hidden" name="index" value="@todo.task"> @* @i *@
                                                     <input class="form-check-input" type="submit" value="" id="flexCheckDefault">
                                                     <label class="form-check-label" for="flexCheckDefault">&nbsp;
                                                     @todo</label>
