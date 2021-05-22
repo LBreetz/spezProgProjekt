@@ -21,10 +21,14 @@ class UserDAO @Inject()(protected val dbConfigProvider: DatabaseConfigProvider)
   def checkUserExists(username: String): Boolean = {
     val names: Future[Seq[User]] = db.run(Users.filter(_.name === username).result)
     val test = Await.result(names, 1.seconds)
-    if (test.head.name == username){
-      println("Nutzer existiert")
-      true
-    } else false
+    try {
+      if (test.head.name == username) {
+        println("Nutzer existiert")
+        true
+      } else false
+    } catch {
+      case e : NoSuchElementException => false
+    }
   }
 
   def checkPassword(username: String, password: String): Boolean ={
