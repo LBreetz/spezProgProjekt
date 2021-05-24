@@ -1,6 +1,5 @@
 package controllers
 
-import models.TodoListMemory
 import play.api.mvc.{BaseController, ControllerComponents}
 
 import javax.inject.{Inject, Singleton}
@@ -23,7 +22,7 @@ import scala.concurrent.ExecutionContext
 
 
 @Singleton
-class TodoList @Inject()(userDao: UserDAO, taskDAO: TaskDAO, controllerComponents: ControllerComponents)
+class TodoList @Inject()(userDAO: UserDAO, taskDAO: TaskDAO, controllerComponents: ControllerComponents)
                         (implicit executionContext: ExecutionContext)extends AbstractController(controllerComponents){
 
   val userForm = Form(
@@ -37,7 +36,7 @@ class TodoList @Inject()(userDao: UserDAO, taskDAO: TaskDAO, controllerComponent
       val username = args("username").head
       val password = args("password").head
 
-      if (userDao.validateLogin(username, password)){
+      if (userDAO.validateLogin(username, password)){
         Redirect(routes.TodoList.todoList(username)).withSession("username" -> username)// store username in session
       } else Redirect(routes.HomeController.index).flashing("error" -> "invalid username or password!")
 
@@ -50,8 +49,8 @@ class TodoList @Inject()(userDao: UserDAO, taskDAO: TaskDAO, controllerComponent
       val username = args("username").head
       val password = args("password").head
       val user: User = User(username, password)
-      if (!userDao.checkUserExists(username)){
-        userDao.insertUser(user).map(_ => Redirect(routes.TodoList.todoList(username)).withSession("username" -> username))
+      if (!userDAO.checkUserExists(username)){
+        userDAO.insertUser(user).map(_ => Redirect(routes.TodoList.todoList(username)).withSession("username" -> username))
         Redirect(routes.TodoList.todoList(username)).withSession("username" -> username)
       } else {
         Redirect(routes.HomeController.create).flashing("error" -> "user already exists!")
@@ -75,8 +74,7 @@ class TodoList @Inject()(userDao: UserDAO, taskDAO: TaskDAO, controllerComponent
         val task = args("newTask").head
         if (task == "") Redirect(routes.TodoList.todoList(username))
         else {
-          val taskObj = Tasks(task, username)
-          //TodoListMemory.addTask(username, task);
+          val taskObj = Tasks(taskDAO.autoIncrementID,task, username)
           taskDAO.insertTask(taskObj)
           Redirect(routes.TodoList.todoList(username))
         }
@@ -90,15 +88,15 @@ class TodoList @Inject()(userDao: UserDAO, taskDAO: TaskDAO, controllerComponent
       val postVals = request.body.asFormUrlEncoded
       postVals.map { args =>
         val index = args("index").head
-        //TodoListMemory.removeTask(username, index);
-        taskDAO.deleteTask(index)
+        taskDAO.deleteTask(index.toInt)
+        taskDAO.idUpdate(index.toInt)
         Redirect(routes.TodoList.todoList(username))
       }.getOrElse(Redirect(routes.TodoList.todoList(username)))
     }.getOrElse(Redirect(routes.HomeController.index()))
   }
 
   def showAllUser= Action.async { implicit request =>
-    userDao.allUser().map { case (user) => Ok(views.html.test(user))}
+    userDAO.allUser().map { case (user) => Ok(views.html.test(user))}
   }
 
   def showAllTasks= Action.async { implicit request =>
