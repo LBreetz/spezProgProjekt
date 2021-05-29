@@ -11,8 +11,8 @@ GET     /TodoList                   controllers.TodoList.todoList(username: Stri
 GET     /logout                     controllers.TodoList.logout
 GET     /env                        controllers.HomeController.env()
 GET     /create                     controllers.HomeController.create()
-GET     /test                       controllers.TodoList.showAllUser
-GET     /test2                      controllers.TodoList.showAllTasks
+GET     /showUser                       controllers.TodoList.showAllUser
+GET     /showTask                      controllers.TodoList.showAllTasks
 
 
 POST    /validateLogin              controllers.TodoList.validateLoginPost

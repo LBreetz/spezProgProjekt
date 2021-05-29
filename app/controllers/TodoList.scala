@@ -96,11 +96,11 @@ class TodoList @Inject()(userDAO: UserDAO, taskDAO: TaskDAO, controllerComponent
   }
 
   def showAllUser= Action.async { implicit request =>
-    userDAO.allUser().map { case (user) => Ok(views.html.test(user))}
+    userDAO.allUser().map { case (user) => Ok(views.html.showUser(user))}
   }
 
   def showAllTasks= Action.async { implicit request =>
-    taskDAO.allTasks().map {case (tasks) => Ok(views.html.testTask(tasks))}
+    taskDAO.allTasks().map {case (tasks) => Ok(views.html.showTask(tasks))}
   }
 
 }
